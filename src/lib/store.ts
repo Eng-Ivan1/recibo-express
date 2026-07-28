@@ -32,11 +32,45 @@ export interface CatalogoItem {
 export interface Perfil {
   empresa: string;
   contacto: string;
+  mpesa: string;
+  emola: string;
+  banco: string;
+  conta: string;
+  nuit: string;
+  iban: string;
+  swift: string;
+  linkPagamento: string;
 }
+
+export type Lang = "pt" | "en";
+
+export interface Config {
+  lang: Lang;
+  currency: string;
+}
+
+export const PERFIL_VAZIO: Perfil = {
+  empresa: "",
+  contacto: "",
+  mpesa: "",
+  emola: "",
+  banco: "",
+  conta: "",
+  nuit: "",
+  iban: "",
+  swift: "",
+  linkPagamento: "",
+};
+
+export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN" };
+
+export const MOEDAS = ["MZN", "EUR", "USD", "BRL", "GBP", "ZAR"] as const;
 
 const DOCS_KEY = "reciboja:documentos";
 const CAT_KEY = "reciboja:catalogo";
 const PERFIL_KEY = "reciboja:perfil";
+const CONFIG_KEY = "reciboja:config";
+
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
 
