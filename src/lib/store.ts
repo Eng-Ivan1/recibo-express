@@ -150,12 +150,30 @@ export function useCatalogo() {
 }
 
 export function usePerfil() {
-  const { value, save, carregado } = useStored<Perfil>(PERFIL_KEY, { empresa: "", contacto: "" });
-  return { perfil: value, guardarPerfil: save, carregado };
+  const { value, save, carregado } = useStored<Perfil>(PERFIL_KEY, PERFIL_VAZIO);
+  return { perfil: { ...PERFIL_VAZIO, ...value }, guardarPerfil: save, carregado };
 }
 
-export const moeda = (v: number) =>
-  new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" }).format(v || 0);
+export function useConfig() {
+  const { value, save, carregado } = useStored<Config>(CONFIG_KEY, CONFIG_INICIAL);
+  return { config: { ...CONFIG_INICIAL, ...value }, guardarConfig: save, carregado };
+}
 
-export const dataCurta = (iso: string) =>
-  new Date(iso).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit", year: "numeric" });
+export const moeda = (v: number, currency = "MZN", lang: Lang = "pt") => {
+  try {
+    return new Intl.NumberFormat(lang === "en" ? "en-US" : "pt-PT", {
+      style: "currency",
+      currency,
+    }).format(v || 0);
+  } catch {
+    return `${currency} ${(v || 0).toFixed(2)}`;
+  }
+};
+
+export const dataCurta = (iso: string, lang: Lang = "pt") =>
+  new Date(iso).toLocaleDateString(lang === "en" ? "en-GB" : "pt-PT", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
