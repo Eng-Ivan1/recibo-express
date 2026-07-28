@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as NovoRouteImport } from './routes/novo'
 import { Route as HistoricoRouteImport } from './routes/historico'
+import { Route as DefinicoesRouteImport } from './routes/definicoes'
 import { Route as CatalogoRouteImport } from './routes/catalogo'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const HistoricoRoute = HistoricoRouteImport.update({
   path: '/historico',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DefinicoesRoute = DefinicoesRouteImport.update({
+  id: '/definicoes',
+  path: '/definicoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CatalogoRoute = CatalogoRouteImport.update({
   id: '/catalogo',
   path: '/catalogo',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/definicoes': typeof DefinicoesRoute
   '/historico': typeof HistoricoRoute
   '/novo': typeof NovoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/definicoes': typeof DefinicoesRoute
   '/historico': typeof HistoricoRoute
   '/novo': typeof NovoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -59,21 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/catalogo': typeof CatalogoRoute
+  '/definicoes': typeof DefinicoesRoute
   '/historico': typeof HistoricoRoute
   '/novo': typeof NovoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catalogo' | '/historico' | '/novo' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/catalogo'
+    | '/definicoes'
+    | '/historico'
+    | '/novo'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catalogo' | '/historico' | '/novo' | '/sitemap.xml'
-  id: '__root__' | '/' | '/catalogo' | '/historico' | '/novo' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/catalogo'
+    | '/definicoes'
+    | '/historico'
+    | '/novo'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/catalogo'
+    | '/definicoes'
+    | '/historico'
+    | '/novo'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CatalogoRoute: typeof CatalogoRoute
+  DefinicoesRoute: typeof DefinicoesRoute
   HistoricoRoute: typeof HistoricoRoute
   NovoRoute: typeof NovoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -102,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HistoricoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/definicoes': {
+      id: '/definicoes'
+      path: '/definicoes'
+      fullPath: '/definicoes'
+      preLoaderRoute: typeof DefinicoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/catalogo': {
       id: '/catalogo'
       path: '/catalogo'
@@ -122,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CatalogoRoute: CatalogoRoute,
+  DefinicoesRoute: DefinicoesRoute,
   HistoricoRoute: HistoricoRoute,
   NovoRoute: NovoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
