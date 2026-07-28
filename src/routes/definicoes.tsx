@@ -66,8 +66,8 @@ function Definicoes() {
             <div className="grid grid-cols-2 gap-2">
               {(
                 [
-                  { code: "pt", label: "🇵🇹 Português (PT)" },
-                  { code: "en", label: "🇬🇧 English (EN)" },
+                  { code: "pt", label: "Português (PT)" },
+                  { code: "en", label: "English (EN)" },
                 ] as { code: Lang; label: string }[]
               ).map((o) => (
                 <button

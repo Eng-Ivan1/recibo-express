@@ -16,8 +16,8 @@ const nav = [
 function LanguageSwitch() {
   const { lang, setLang } = useI18n();
   const opcoes: { code: Lang; label: string; flag: string }[] = [
-    { code: "pt", label: "PT", flag: "🇵🇹" },
-    { code: "en", label: "EN", flag: "🇬🇧" },
+    { code: "pt", label: "PT", flag: "PT" },
+    { code: "en", label: "EN", flag: "EN" },
   ];
 
   return (
