@@ -15,9 +15,9 @@ const nav = [
 
 function LanguageSwitch() {
   const { lang, setLang } = useI18n();
-  const opcoes: { code: Lang; label: string; flag: string }[] = [
-    { code: "pt", label: "PT", flag: "PT" },
-    { code: "en", label: "EN", flag: "EN" },
+  const opcoes: { code: Lang; label: string }[] = [
+    { code: "pt", label: "PT" },
+    { code: "en", label: "EN" },
   ];
 
   return (
@@ -35,7 +35,6 @@ function LanguageSwitch() {
               : "opacity-80 hover:opacity-100",
           )}
         >
-          <span aria-hidden>{o.flag}</span>
           {o.label}
         </button>
       ))}
