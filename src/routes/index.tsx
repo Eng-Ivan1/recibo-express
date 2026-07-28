@@ -47,7 +47,7 @@ function Painel() {
   ];
 
   return (
-    <AppLayout title="Olá 👋" subtitle="Aqui está o resumo do seu negócio.">
+    <AppLayout title="Olá" subtitle="Aqui está o resumo do seu negócio.">
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3">
         {cards.map((c) => (
           <div
