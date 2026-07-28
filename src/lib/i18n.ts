@@ -1,4 +1,4 @@
-import { useConfig, type Lang } from "./store";
+import { dataCurta, moeda, useConfig, type Lang } from "./store";
 
 type Dict = Record<string, string>;
 
@@ -208,5 +208,7 @@ export function useI18n() {
     setLang: (l: Lang) => guardarConfig({ ...config, lang: l }),
     setCurrency: (c: string) => guardarConfig({ ...config, currency: c }),
     t: (key: string) => translate(lang, key),
+    fmt: (v: number) => moeda(v, config.currency, lang),
+    data: (iso: string) => dataCurta(iso, lang),
   };
 }
