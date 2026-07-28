@@ -1,0 +1,127 @@
+import { useCallback, useEffect, useState } from "react";
+
+export type DocType = "recibo" | "orcamento";
+export type DocStatus = "pago" | "pendente";
+
+export interface DocItem {
+  id: string;
+  nome: string;
+  quantidade: number;
+  preco: number;
+}
+
+export interface Documento {
+  id: string;
+  numero: number;
+  tipo: DocType;
+  status: DocStatus;
+  cliente: string;
+  clienteContacto: string;
+  observacoes: string;
+  itens: DocItem[];
+  total: number;
+  criadoEm: string;
+}
+
+export interface CatalogoItem {
+  id: string;
+  nome: string;
+  preco: number;
+}
+
+export interface Perfil {
+  empresa: string;
+  contacto: string;
+}
+
+const DOCS_KEY = "reciboja:documentos";
+const CAT_KEY = "reciboja:catalogo";
+const PERFIL_KEY = "reciboja:perfil";
+
+export const uid = () => Math.random().toString(36).slice(2, 10);
+
+function read<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") return fallback;
+  try {
+    const raw = window.localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function write<T>(key: string, value: T) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(key, JSON.stringify(value));
+  window.dispatchEvent(new CustomEvent("reciboja:update", { detail: key }));
+}
+
+function useStored<T>(key: string, fallback: T) {
+  const [value, setValue] = useState<T>(fallback);
+  const [carregado, setCarregado] = useState(false);
+
+  useEffect(() => {
+    setValue(read(key, fallback));
+    setCarregado(true);
+    const onUpdate = (e: Event) => {
+      if ((e as CustomEvent).detail === key) setValue(read(key, fallback));
+    };
+    window.addEventListener("reciboja:update", onUpdate);
+    return () => window.removeEventListener("reciboja:update", onUpdate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
+  const save = useCallback(
+    (next: T) => {
+      setValue(next);
+      write(key, next);
+    },
+    [key],
+  );
+
+  return { value, save, carregado };
+}
+
+export function useDocumentos() {
+  const { value, save, carregado } = useStored<Documento[]>(DOCS_KEY, []);
+
+  const adicionar = (doc: Omit<Documento, "id" | "numero" | "criadoEm">) => {
+    const numero = value.reduce((m, d) => Math.max(m, d.numero), 0) + 1;
+    const novo: Documento = { ...doc, id: uid(), numero, criadoEm: new Date().toISOString() };
+    save([novo, ...value]);
+    return novo;
+  };
+
+  const alternarStatus = (id: string) =>
+    save(
+      value.map((d) =>
+        d.id === id ? { ...d, status: d.status === "pago" ? "pendente" : "pago" } : d,
+      ),
+    );
+
+  const remover = (id: string) => save(value.filter((d) => d.id !== id));
+
+  return { documentos: value, adicionar, alternarStatus, remover, carregado };
+}
+
+export function useCatalogo() {
+  const { value, save, carregado } = useStored<CatalogoItem[]>(CAT_KEY, []);
+  return {
+    catalogo: value,
+    adicionar: (nome: string, preco: number) => save([...value, { id: uid(), nome, preco }]),
+    atualizar: (item: CatalogoItem) => save(value.map((i) => (i.id === item.id ? item : i))),
+    remover: (id: string) => save(value.filter((i) => i.id !== id)),
+    carregado,
+  };
+}
+
+export function usePerfil() {
+  const { value, save, carregado } = useStored<Perfil>(PERFIL_KEY, { empresa: "", contacto: "" });
+  return { perfil: value, guardarPerfil: save, carregado };
+}
+
+export const moeda = (v: number) =>
+  new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" }).format(v || 0);
+
+export const dataCurta = (iso: string) =>
+  new Date(iso).toLocaleDateString("pt-PT", { day: "2-digit", month: "2-digit", year: "numeric" });
