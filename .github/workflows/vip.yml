@@ -1,0 +1,45 @@
+name: Build & publish EasyGest VIP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vip
+  cancel-in-progress: true
+
+jobs:
+  vip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+
+      # Variação paralela "EasyGest VIP": sem trava (30 dias / bloqueio desativado)
+      - name: Apply VIP edition
+        run: |
+          echo "VITE_APP_EDITION=vip" > .env.production
+          echo "VITE_APP_EDITION=vip" > .env
+
+      - name: Build VIP
+        env:
+          VITE_APP_EDITION: vip
+        run: bun run build
+
+      - name: Push VIP source to "vip" branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B vip
+          git add -A -f .env .env.production
+          git commit -m "EasyGest VIP build from ${GITHUB_SHA::7}" || echo "nothing to commit"
+          git push --force origin vip
