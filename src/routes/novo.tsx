@@ -30,13 +30,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/novo")({
   head: () => ({
     meta: [
-      { title: "Novo documento | Gestão Fácil" },
+      { title: "Novo documento | EasyGest" },
       {
         name: "description",
         content:
           "Preencha os dados do cliente, adicione itens e gere um recibo ou orçamento em PDF.",
       },
-      { property: "og:title", content: "Novo documento | Gestão Fácil" },
+      { property: "og:title", content: "Novo documento | EasyGest" },
       {
         property: "og:description",
         content: "Gerador dinâmico de recibos e orçamentos com cálculo automático de totais.",
