@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ReciboJá — Recibos e orçamentos em segundos" },
+      { title: "Gestão Fácil — Recibos e orçamentos em segundos" },
       {
         name: "description",
         content:
           "Crie recibos e orçamentos profissionais em PDF pelo telemóvel. Feito para freelancers e pequenos comerciantes.",
       },
-      { property: "og:title", content: "ReciboJá — Recibos e orçamentos em segundos" },
+      { property: "og:title", content: "Gestão Fácil — Recibos e orçamentos em segundos" },
       {
         property: "og:description",
         content: "Gere recibos e orçamentos profissionais em PDF em poucos toques.",
