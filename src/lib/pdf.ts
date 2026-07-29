@@ -58,7 +58,7 @@ export function gerarPdf(
   pdf.setTextColor(255, 255, 255);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(22);
-  pdf.text(perfil.empresa || "ReciboJá", M, 52);
+  pdf.text(perfil.empresa || "Gestão Fácil", M, 52);
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(10);
   if (perfil.contacto) pdf.text(perfil.contacto, M, 70);

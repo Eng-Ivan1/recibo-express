@@ -19,13 +19,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/definicoes")({
   head: () => ({
     meta: [
-      { title: "Definições | ReciboJá" },
+      { title: "Definições | Gestão Fácil" },
       {
         name: "description",
         content:
           "Configure idioma, moeda e os dados de pagamento do emissor: M-Pesa, e-Mola, banco local, IBAN, SWIFT e link de pagamento.",
       },
-      { property: "og:title", content: "Definições | ReciboJá" },
+      { property: "og:title", content: "Definições | Gestão Fácil" },
       {
         property: "og:description",
         content: "Idioma, moeda e dados de pagamento nacionais e internacionais.",

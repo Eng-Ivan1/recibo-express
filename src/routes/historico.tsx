@@ -11,13 +11,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/historico")({
   head: () => ({
     meta: [
-      { title: "Histórico | ReciboJá" },
+      { title: "Histórico | Gestão Fácil" },
       {
         name: "description",
         content:
           "Consulte todos os recibos e orçamentos emitidos, com estado pago ou pendente e download do PDF.",
       },
-      { property: "og:title", content: "Histórico | ReciboJá" },
+      { property: "og:title", content: "Histórico | Gestão Fácil" },
       {
         property: "og:description",
         content: "Lista completa dos seus documentos com estado de pagamento.",
@@ -35,7 +35,7 @@ function Historico() {
   const mensagemCobranca = (d: Documento) => {
     const numero = String(d.numero).padStart(4, "0");
     const valor = moeda(d.total, currency, lang);
-    const emissor = perfil.empresa || "ReciboJá";
+    const emissor = perfil.empresa || "Gestão Fácil";
     const tipo = d.tipo === "recibo" ? t("common.receipt") : t("common.quote");
     const pagamento = [
       perfil.mpesa ? `M-Pesa: ${perfil.mpesa}` : "",
@@ -67,6 +67,11 @@ function Historico() {
       `Com os melhores cumprimentos,\n${emissor}`
     );
   };
+
+  // Um orçamento marcado como pago é exportado automaticamente como recibo/invoice,
+  // reaproveitando todos os dados originais (sem prazo de validade de 30 dias).
+  const baixarPdf = (d: Documento) =>
+    gerarPdf(d.status === "pago" ? { ...d, tipo: "recibo" } : d, perfil, { lang, currency });
 
   const enviarWhatsapp = (d: Documento) => {
     const telefone = (d.clienteContacto || "").replace(/[^0-9]/g, "");
@@ -128,7 +133,7 @@ function Historico() {
                       variant="outline"
                       size="sm"
                       className="border-success/40 text-success hover:bg-success/10"
-                      onClick={() => gerarPdf(d, perfil, { lang, currency })}
+                      onClick={() => baixarPdf(d)}
                     >
                       <Download className="size-4" /> {t("hist.downloadReceipt")}
                     </Button>
@@ -145,7 +150,7 @@ function Historico() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => gerarPdf(d, perfil, { lang, currency })}
+                    onClick={() => baixarPdf(d)}
                     aria-label={t("hist.downloadPdf")}
                   >
                     <Download className="size-4" />
