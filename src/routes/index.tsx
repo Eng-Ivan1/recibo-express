@@ -9,13 +9,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Painel | Gestão Fácil" },
+      { title: "Painel | EasyGest" },
       {
         name: "description",
         content:
           "Veja quanto faturou no mês, quantos recibos emitiu e crie um novo documento num toque.",
       },
-      { property: "og:title", content: "Painel | Gestão Fácil" },
+      { property: "og:title", content: "Painel | EasyGest" },
       {
         property: "og:description",
         content: "Resumo de faturação e criação rápida de recibos e orçamentos.",
