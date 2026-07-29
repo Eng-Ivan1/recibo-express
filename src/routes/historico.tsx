@@ -133,7 +133,7 @@ function Historico() {
                       variant="outline"
                       size="sm"
                       className="border-success/40 text-success hover:bg-success/10"
-                      onClick={() => gerarPdf(d, perfil, { lang, currency })}
+                      onClick={() => baixarPdf(d)}
                     >
                       <Download className="size-4" /> {t("hist.downloadReceipt")}
                     </Button>
@@ -150,7 +150,7 @@ function Historico() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => gerarPdf(d, perfil, { lang, currency })}
+                    onClick={() => baixarPdf(d)}
                     aria-label={t("hist.downloadPdf")}
                   >
                     <Download className="size-4" />
