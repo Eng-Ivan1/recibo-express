@@ -68,6 +68,11 @@ function Historico() {
     );
   };
 
+  // Um orçamento marcado como pago é exportado automaticamente como recibo/invoice,
+  // reaproveitando todos os dados originais (sem prazo de validade de 30 dias).
+  const baixarPdf = (d: Documento) =>
+    gerarPdf(d.status === "pago" ? { ...d, tipo: "recibo" } : d, perfil, { lang, currency });
+
   const enviarWhatsapp = (d: Documento) => {
     const telefone = (d.clienteContacto || "").replace(/[^0-9]/g, "");
     const texto = encodeURIComponent(mensagemCobranca(d));
