@@ -104,14 +104,6 @@ const pt: Dict = {
   "set.bankZA": "Bank Details (South Africa)",
   "set.branch": "Branch / Agência",
   "set.taxId": "Tax ID",
-  "set.country": "Country",
-  "set.countryHint": "Automatically adapts language, currency and tax fields.",
-  "set.pix": "PIX Key",
-  "set.cpfCnpj": "CPF / CNPJ",
-  "set.bankBR": "Bank Details (Brazil)",
-  "set.bankZA": "Bank Details (South Africa)",
-  "set.branch": "Branch code",
-  "set.taxId": "Tax ID",
   "set.saved": "Definições guardadas.",
 };
 
@@ -209,6 +201,14 @@ const en: Dict = {
   "set.iban": "IBAN",
   "set.swift": "SWIFT / BIC",
   "set.payLink": "Payment Link (PayPal / Stripe)",
+  "set.country": "Country",
+  "set.countryHint": "Automatically adapts language, currency and tax fields.",
+  "set.pix": "PIX Key",
+  "set.cpfCnpj": "CPF / CNPJ",
+  "set.bankBR": "Bank Details (Brazil)",
+  "set.bankZA": "Bank Details (South Africa)",
+  "set.branch": "Branch code",
+  "set.taxId": "Tax ID",
   "set.saved": "Settings saved.",
 };
 
