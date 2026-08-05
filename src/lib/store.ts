@@ -37,16 +37,22 @@ export interface Perfil {
   banco: string;
   conta: string;
   nuit: string;
+  pix: string;
+  cpfCnpj: string;
+  branchCode: string;
+  taxId: string;
   iban: string;
   swift: string;
   linkPagamento: string;
 }
 
 export type Lang = "pt" | "en";
+export type Pais = "MZ" | "BR" | "ZA";
 
 export interface Config {
   lang: Lang;
   currency: string;
+  pais: Pais;
 }
 
 export const PERFIL_VAZIO: Perfil = {
@@ -57,19 +63,40 @@ export const PERFIL_VAZIO: Perfil = {
   banco: "",
   conta: "",
   nuit: "",
+  pix: "",
+  cpfCnpj: "",
+  branchCode: "",
+  taxId: "",
   iban: "",
   swift: "",
   linkPagamento: "",
 };
 
-export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN" };
+export const PAIS_REGRAS: Record<Pais, { lang: Lang; currency: string }> = {
+  MZ: { lang: "pt", currency: "MZN" },
+  BR: { lang: "pt", currency: "BRL" },
+  ZA: { lang: "en", currency: "ZAR" },
+};
 
-export const MOEDAS = ["MZN", "EUR", "USD", "BRL", "GBP", "ZAR"] as const;
+/** Deteta o país a partir do locale do dispositivo (fallback: Moçambique). */
+export function detetarPais(): Pais {
+  if (typeof navigator === "undefined") return "MZ";
+  const loc = (navigator.language || "").toUpperCase();
+  if (loc.includes("BR")) return "BR";
+  if (loc.includes("ZA")) return "ZA";
+  return "MZ";
+}
+
+export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN", pais: "MZ" };
+
+export const MOEDAS = ["MZN", "BRL", "ZAR", "EUR", "USD", "GBP"] as const;
 
 const DOCS_KEY = "reciboja:documentos";
 const CAT_KEY = "reciboja:catalogo";
 const PERFIL_KEY = "reciboja:perfil";
 const CONFIG_KEY = "reciboja:config";
+const RASCUNHO_KEY = "reciboja:rascunho";
+
 
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
