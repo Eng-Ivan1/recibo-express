@@ -1,6 +1,6 @@
-# EasyGest
+# BusiGest
 
-EasyGest é um Micro-SaaS em português que ajuda freelancers, pequenos comerciantes e prestadores de serviços a gerarem orçamentos e recibos profissionais em segundos pelo telemóvel ou computador.
+BusiGest é um Micro-SaaS em português que ajuda freelancers, pequenos comerciantes e prestadores de serviços a gerarem orçamentos e recibos profissionais em segundos pelo telemóvel ou computador.
 
 O sistema deve ter as seguintes telas e funcionalidades:
 

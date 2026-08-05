@@ -32,8 +32,8 @@ export function TrialGate({ children }: { children: ReactNode }) {
         </h1>
         <p className="text-sm text-muted-foreground">
           {pt
-            ? `As suas ${TRIAL_DAYS * 24} horas gratuitas de utilização do EasyGest expiraram. Para continuar a criar recibos e orçamentos, ative a sua licença através da EscalePay.`
-            : `Your ${TRIAL_DAYS * 24} free hours of EasyGest have expired. To keep creating receipts and quotations, activate your licence through EscalePay.`}
+            ? `As suas ${TRIAL_DAYS * 24} horas gratuitas de utilização do BusiGest expiraram. Para continuar a criar recibos e orçamentos, ative a sua licença através da EscalePay.`
+            : `Your ${TRIAL_DAYS * 24} free hours of BusiGest have expired. To keep creating receipts and quotations, activate your licence through EscalePay.`}
         </p>
         <a
           href={ESCALEPAY_URL}
@@ -45,8 +45,8 @@ export function TrialGate({ children }: { children: ReactNode }) {
         </a>
         <p className="text-xs text-muted-foreground">
           {pt
-            ? "Já é cliente? Aceda à versão EasyGest VIP com o seu acesso pago."
-            : "Already a customer? Use EasyGest VIP with your paid access."}
+            ? "Já é cliente? Aceda à versão BusiGest VIP com o seu acesso pago."
+            : "Already a customer? Use BusiGest VIP with your paid access."}
         </p>
       </div>
     </div>

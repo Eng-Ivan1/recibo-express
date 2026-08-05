@@ -63,7 +63,7 @@ export function AppLayout({
               <span className="flex size-9 items-center justify-center rounded-xl bg-primary-foreground/15">
                 <Receipt className="size-5" />
               </span>
-              <span className="text-lg font-extrabold tracking-tight">EasyGest</span>
+              <span className="text-lg font-extrabold tracking-tight">BusiGest</span>
             </Link>
             <div className="flex items-center gap-2">
               <nav className="hidden items-center gap-1 md:flex">

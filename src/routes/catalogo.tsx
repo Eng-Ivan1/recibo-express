@@ -12,13 +12,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/catalogo")({
   head: () => ({
     meta: [
-      { title: "Catálogo | EasyGest" },
+      { title: "Catálogo | BusiGest" },
       {
         name: "description",
         content:
           "Guarde os seus produtos e serviços mais vendidos com preço e reutilize-os nos recibos.",
       },
-      { property: "og:title", content: "Catálogo | EasyGest" },
+      { property: "og:title", content: "Catálogo | BusiGest" },
       {
         property: "og:description",
         content: "Mini-stock de produtos e serviços para criar recibos mais depressa.",

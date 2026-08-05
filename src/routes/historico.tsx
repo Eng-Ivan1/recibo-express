@@ -11,13 +11,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/historico")({
   head: () => ({
     meta: [
-      { title: "Histórico | EasyGest" },
+      { title: "Histórico | BusiGest" },
       {
         name: "description",
         content:
           "Consulte todos os recibos e orçamentos emitidos, com estado pago ou pendente e download do PDF.",
       },
-      { property: "og:title", content: "Histórico | EasyGest" },
+      { property: "og:title", content: "Histórico | BusiGest" },
       {
         property: "og:description",
         content: "Lista completa dos seus documentos com estado de pagamento.",
@@ -35,7 +35,7 @@ function Historico() {
   const mensagemCobranca = (d: Documento) => {
     const numero = String(d.numero).padStart(4, "0");
     const valor = moeda(d.total, currency, lang);
-    const emissor = perfil.empresa || "EasyGest";
+    const emissor = perfil.empresa || "BusiGest";
     const tipo = d.tipo === "recibo" ? t("common.receipt") : t("common.quote");
     const pagamento = [
       perfil.mpesa ? `M-Pesa: ${perfil.mpesa}` : "",
