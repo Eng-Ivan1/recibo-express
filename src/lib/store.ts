@@ -182,9 +182,17 @@ export function usePerfil() {
 }
 
 export function useConfig() {
-  const { value, save, carregado } = useStored<Config>(CONFIG_KEY, CONFIG_INICIAL);
-  return { config: { ...CONFIG_INICIAL, ...value }, guardarConfig: save, carregado };
+  const { value, save, carregado } = useStored<Config | null>(CONFIG_KEY, null);
+  // Sem configuração guardada: adapta automaticamente ao locale do dispositivo.
+  const auto = value ? null : detetarPais();
+  const base = auto ? { ...CONFIG_INICIAL, pais: auto, ...PAIS_REGRAS[auto] } : CONFIG_INICIAL;
+  return {
+    config: { ...base, ...(value ?? {}) } as Config,
+    guardarConfig: (c: Config) => save(c),
+    carregado,
+  };
 }
+
 
 export const moeda = (v: number, currency = "MZN", lang: Lang = "pt") => {
   try {
