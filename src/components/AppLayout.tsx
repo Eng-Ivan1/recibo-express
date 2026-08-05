@@ -1,5 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { FileText, History, LayoutDashboard, Package, Receipt, Settings } from "lucide-react";
+import {
+  FileText,
+  HelpCircle,
+  History,
+  LayoutDashboard,
+  Package,
+  Receipt,
+  Settings,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
@@ -11,6 +19,7 @@ const nav = [
   { to: "/catalogo", key: "nav.catalogo", icon: Package },
   { to: "/historico", key: "nav.historico", icon: History },
   { to: "/definicoes", key: "nav.definicoes", icon: Settings },
+  { to: "/ajuda", key: "nav.ajuda", icon: HelpCircle },
 ] as const;
 
 function LanguageSwitch() {
@@ -63,7 +72,7 @@ export function AppLayout({
               <span className="flex size-9 items-center justify-center rounded-xl bg-primary-foreground/15">
                 <Receipt className="size-5" />
               </span>
-              <span className="text-lg font-extrabold tracking-tight">EasyGest</span>
+              <span className="text-lg font-extrabold tracking-tight">BusiGest</span>
             </Link>
             <div className="flex items-center gap-2">
               <nav className="hidden items-center gap-1 md:flex">
@@ -95,7 +104,7 @@ export function AppLayout({
       <main className="mx-auto -mt-6 w-full max-w-5xl px-5">{children}</main>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 backdrop-blur md:hidden">
-        <div className="mx-auto grid max-w-5xl grid-cols-5">
+        <div className="mx-auto grid max-w-5xl grid-cols-6">
           {nav.map((item) => {
             const active = pathname === item.to;
             const Icon = item.icon;

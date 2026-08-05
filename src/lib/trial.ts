@@ -31,3 +31,19 @@ export function trialMsLeft(): number {
 export function isTrialExpired(): boolean {
   return trialMsLeft() <= 0;
 }
+
+export const ESCALEPAY_URL = "https://escalepay.com";
+
+/** Ciclo de subscrição VIP: 30 dias a contar do primeiro acesso. */
+export const CICLO_DIAS = 30;
+
+/** Dias que faltam para o fim do ciclo de 30 dias (VIP). */
+export function diasParaRenovacao(): number {
+  const fim = getTrialStart() + CICLO_DIAS * 24 * 60 * 60 * 1000;
+  return Math.max(0, Math.ceil((fim - Date.now()) / 86_400_000));
+}
+
+/** Mostra aviso quando faltam 5 dias ou menos. */
+export function precisaAvisoRenovacao(): boolean {
+  return IS_VIP && diasParaRenovacao() <= 5;
+}

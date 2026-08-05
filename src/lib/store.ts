@@ -37,16 +37,22 @@ export interface Perfil {
   banco: string;
   conta: string;
   nuit: string;
+  pix: string;
+  cpfCnpj: string;
+  branchCode: string;
+  taxId: string;
   iban: string;
   swift: string;
   linkPagamento: string;
 }
 
 export type Lang = "pt" | "en";
+export type Pais = "MZ" | "BR" | "ZA";
 
 export interface Config {
   lang: Lang;
   currency: string;
+  pais: Pais;
 }
 
 export const PERFIL_VAZIO: Perfil = {
@@ -57,19 +63,40 @@ export const PERFIL_VAZIO: Perfil = {
   banco: "",
   conta: "",
   nuit: "",
+  pix: "",
+  cpfCnpj: "",
+  branchCode: "",
+  taxId: "",
   iban: "",
   swift: "",
   linkPagamento: "",
 };
 
-export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN" };
+export const PAIS_REGRAS: Record<Pais, { lang: Lang; currency: string }> = {
+  MZ: { lang: "pt", currency: "MZN" },
+  BR: { lang: "pt", currency: "BRL" },
+  ZA: { lang: "en", currency: "ZAR" },
+};
 
-export const MOEDAS = ["MZN", "EUR", "USD", "BRL", "GBP", "ZAR"] as const;
+/** Deteta o país a partir do locale do dispositivo (fallback: Moçambique). */
+export function detetarPais(): Pais {
+  if (typeof navigator === "undefined") return "MZ";
+  const loc = (navigator.language || "").toUpperCase();
+  if (loc.includes("BR")) return "BR";
+  if (loc.includes("ZA")) return "ZA";
+  return "MZ";
+}
+
+export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN", pais: "MZ" };
+
+export const MOEDAS = ["MZN", "BRL", "ZAR", "EUR", "USD", "GBP"] as const;
 
 const DOCS_KEY = "reciboja:documentos";
 const CAT_KEY = "reciboja:catalogo";
 const PERFIL_KEY = "reciboja:perfil";
 const CONFIG_KEY = "reciboja:config";
+const RASCUNHO_KEY = "reciboja:rascunho";
+
 
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
@@ -155,9 +182,17 @@ export function usePerfil() {
 }
 
 export function useConfig() {
-  const { value, save, carregado } = useStored<Config>(CONFIG_KEY, CONFIG_INICIAL);
-  return { config: { ...CONFIG_INICIAL, ...value }, guardarConfig: save, carregado };
+  const { value, save, carregado } = useStored<Config | null>(CONFIG_KEY, null);
+  // Sem configuração guardada: adapta automaticamente ao locale do dispositivo.
+  const auto = value ? null : detetarPais();
+  const base = auto ? { ...CONFIG_INICIAL, pais: auto, ...PAIS_REGRAS[auto] } : CONFIG_INICIAL;
+  return {
+    config: { ...base, ...(value ?? {}) } as Config,
+    guardarConfig: (c: Config) => save(c),
+    carregado,
+  };
 }
+
 
 export const moeda = (v: number, currency = "MZN", lang: Lang = "pt") => {
   try {
@@ -177,3 +212,32 @@ export const dataCurta = (iso: string, lang: Lang = "pt") =>
     year: "numeric",
   });
 
+
+export interface Rascunho {
+  tipo: DocType;
+  status: DocStatus;
+  cliente: string;
+  clienteContacto: string;
+  observacoes: string;
+  itens: DocItem[];
+}
+
+export const RASCUNHO_VAZIO: Rascunho = {
+  tipo: "recibo",
+  status: "pago",
+  cliente: "",
+  clienteContacto: "",
+  observacoes: "",
+  itens: [],
+};
+
+/** Cache global do formulário: navegar entre abas nunca perde o que já foi digitado. */
+export function useRascunho() {
+  const { value, save, carregado } = useStored<Rascunho>(RASCUNHO_KEY, RASCUNHO_VAZIO);
+  return {
+    rascunho: { ...RASCUNHO_VAZIO, ...value },
+    guardarRascunho: save,
+    limparRascunho: () => save(RASCUNHO_VAZIO),
+    carregado,
+  };
+}

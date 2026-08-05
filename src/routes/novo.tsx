@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Download, Package, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppLayout } from "@/components/AppLayout";
@@ -20,6 +20,7 @@ import {
   useCatalogo,
   useDocumentos,
   usePerfil,
+  useRascunho,
   type DocItem,
   type DocStatus,
   type DocType,
@@ -30,13 +31,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/novo")({
   head: () => ({
     meta: [
-      { title: "Novo documento | EasyGest" },
+      { title: "Novo documento | BusiGest" },
       {
         name: "description",
         content:
           "Preencha os dados do cliente, adicione itens e gere um recibo ou orçamento em PDF.",
       },
-      { property: "og:title", content: "Novo documento | EasyGest" },
+      { property: "og:title", content: "Novo documento | BusiGest" },
       {
         property: "og:description",
         content: "Gerador dinâmico de recibos e orçamentos com cálculo automático de totais.",
@@ -53,14 +54,24 @@ function Novo() {
   const { perfil, guardarPerfil } = usePerfil();
   const { t, fmt, lang, currency } = useI18n();
 
-  const [tipo, setTipo] = useState<DocType>("recibo");
-  const [status, setStatus] = useState<DocStatus>("pago");
-  const [cliente, setCliente] = useState("");
-  const [clienteContacto, setClienteContacto] = useState("");
-  const [observacoes, setObservacoes] = useState("");
-  const [itens, setItens] = useState<DocItem[]>([
-    { id: uid(), nome: "", quantidade: 1, preco: 0 },
-  ]);
+  const { rascunho, guardarRascunho, limparRascunho, carregado } = useRascunho();
+
+  const { tipo, status, cliente, clienteContacto, observacoes, itens } = rascunho;
+  const patch = (p: Partial<typeof rascunho>) => guardarRascunho({ ...rascunho, ...p });
+  const setTipo = (v: DocType) => patch({ tipo: v });
+  const setStatus = (v: DocStatus) => patch({ status: v });
+  const setCliente = (v: string) => patch({ cliente: v });
+  const setClienteContacto = (v: string) => patch({ clienteContacto: v });
+  const setObservacoes = (v: string) => patch({ observacoes: v });
+  const setItens = (fn: (prev: DocItem[]) => DocItem[]) => patch({ itens: fn(itens) });
+
+  // Garante sempre uma linha de item visível no formulário.
+  useEffect(() => {
+    if (carregado && itens.length === 0) {
+      patch({ itens: [{ id: uid(), nome: "", quantidade: 1, preco: 0 }] });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carregado, itens.length]);
 
   const total = itens.reduce((s, i) => s + (i.quantidade || 0) * (i.preco || 0), 0);
 
@@ -92,6 +103,7 @@ function Novo() {
     });
 
     gerarPdf(doc, perfil, { lang, currency });
+    limparRascunho();
     toast.success(t("novo.ok"));
     navigate({ to: "/historico" });
   };

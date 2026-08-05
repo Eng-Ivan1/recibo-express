@@ -58,11 +58,12 @@ export function gerarPdf(
   pdf.setTextColor(255, 255, 255);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(22);
-  pdf.text(perfil.empresa || "EasyGest", M, 52);
+  pdf.text(perfil.empresa || "BusiGest", M, 52);
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(10);
   if (perfil.contacto) pdf.text(perfil.contacto, M, 70);
-  if (perfil.nuit) pdf.text(`NUIT: ${perfil.nuit}`, M, 85);
+  const fiscal = perfil.nuit || perfil.cpfCnpj || perfil.taxId;
+  if (fiscal) pdf.text(`${perfil.nuit ? "NUIT" : perfil.cpfCnpj ? "CPF/CNPJ" : "Tax ID"}: ${fiscal}`, M, 85);
 
   const titulo = doc.tipo === "recibo" ? s.receipt : s.quote;
   pdf.setFont("helvetica", "bold");
@@ -148,9 +149,11 @@ export function gerarPdf(
   const pagamento = [
     perfil.mpesa ? `M-Pesa: ${perfil.mpesa}` : "",
     perfil.emola ? `e-Mola: ${perfil.emola}` : "",
+    perfil.pix ? `PIX: ${perfil.pix}` : "",
     perfil.banco || perfil.conta
       ? `${perfil.banco}${perfil.banco && perfil.conta ? " · " : ""}${perfil.conta}`
       : "",
+    perfil.branchCode ? `Branch: ${perfil.branchCode}` : "",
     perfil.iban ? `IBAN: ${perfil.iban}` : "",
     perfil.swift ? `SWIFT/BIC: ${perfil.swift}` : "",
     perfil.linkPagamento

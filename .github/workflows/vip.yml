@@ -1,4 +1,4 @@
-name: Build & publish EasyGest VIP
+name: Build & publish BusiGest VIP
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
 
-      # Variação paralela "EasyGest VIP": sem trava (30 dias / bloqueio desativado)
+      # Variação paralela "BusiGest VIP": sem trava (30 dias / bloqueio desativado)
       - name: Apply VIP edition
         run: |
           echo "VITE_APP_EDITION=vip" > .env.production
@@ -41,5 +41,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -B vip
           git add -A -f .env .env.production
-          git commit -m "EasyGest VIP build from ${GITHUB_SHA::7}" || echo "nothing to commit"
+          git commit -m "BusiGest VIP build from ${GITHUB_SHA::7}" || echo "nothing to commit"
           git push --force origin vip

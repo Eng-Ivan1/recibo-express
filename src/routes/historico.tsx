@@ -11,13 +11,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/historico")({
   head: () => ({
     meta: [
-      { title: "Histórico | EasyGest" },
+      { title: "Histórico | BusiGest" },
       {
         name: "description",
         content:
           "Consulte todos os recibos e orçamentos emitidos, com estado pago ou pendente e download do PDF.",
       },
-      { property: "og:title", content: "Histórico | EasyGest" },
+      { property: "og:title", content: "Histórico | BusiGest" },
       {
         property: "og:description",
         content: "Lista completa dos seus documentos com estado de pagamento.",
@@ -35,36 +35,39 @@ function Historico() {
   const mensagemCobranca = (d: Documento) => {
     const numero = String(d.numero).padStart(4, "0");
     const valor = moeda(d.total, currency, lang);
-    const emissor = perfil.empresa || "EasyGest";
+    const emissor = perfil.empresa || "BusiGest";
     const tipo = d.tipo === "recibo" ? t("common.receipt") : t("common.quote");
     const pagamento = [
-      perfil.mpesa ? `M-Pesa: ${perfil.mpesa}` : "",
-      perfil.emola ? `e-Mola: ${perfil.emola}` : "",
+      perfil.mpesa ? `M-Pesa: *${perfil.mpesa}*` : "",
+      perfil.emola ? `e-Mola: *${perfil.emola}*` : "",
+      perfil.pix ? `PIX: *${perfil.pix}*` : "",
       perfil.banco || perfil.conta ? `${perfil.banco} ${perfil.conta}`.trim() : "",
+      perfil.branchCode ? `Branch: ${perfil.branchCode}` : "",
       perfil.iban ? `IBAN: ${perfil.iban}` : "",
       perfil.swift ? `SWIFT/BIC: ${perfil.swift}` : "",
-      perfil.linkPagamento || "",
+      perfil.linkPagamento ? `${lang === "en" ? "Pay online" : "Pagar online"}: ${perfil.linkPagamento}` : "",
     ]
       .filter(Boolean)
+      .map((l) => `• ${l}`)
       .join("\n");
 
     if (lang === "en") {
       return (
-        `Hello ${d.cliente},\n\n` +
-        `We hope you are well. This is a friendly reminder regarding ${tipo} No. ${numero}, ` +
-        `dated ${data(d.criadoEm)}, with a total amount due of ${valor}.\n\n` +
-        (pagamento ? `Payment details:\n${pagamento}\n\n` : "") +
-        `Whenever convenient, please confirm the payment. Thank you for your business.\n\n` +
-        `Kind regards,\n${emissor}`
+        `Hello *${d.cliente}*,\n\n` +
+        `We hope you are doing well. This is a friendly reminder about ${tipo} *No. ${numero}*, issued on ${data(d.criadoEm)}.\n\n` +
+        `*Total due: ${valor}*\n\n` +
+        (pagamento ? `*Payment details*\n${pagamento}\n\n` : "") +
+        `Whenever convenient, please confirm the payment and send us the proof. Thank you for your business.\n\n` +
+        `Kind regards,\n*${emissor}*`
       );
     }
     return (
-      `Olá ${d.cliente},\n\n` +
-      `Esperamos que esteja tudo bem. Enviamos um lembrete cordial referente ao ${tipo.toLowerCase()} nº ${numero}, ` +
-      `emitido a ${data(d.criadoEm)}, no valor total de ${valor}.\n\n` +
-      (pagamento ? `Dados para pagamento:\n${pagamento}\n\n` : "") +
-      `Assim que lhe for possível, agradecemos a confirmação do pagamento. Obrigado pela preferência.\n\n` +
-      `Com os melhores cumprimentos,\n${emissor}`
+      `Olá *${d.cliente}*,\n\n` +
+      `Esperamos que esteja tudo bem. Enviamos um lembrete cordial referente ao ${tipo.toLowerCase()} *nº ${numero}*, emitido a ${data(d.criadoEm)}.\n\n` +
+      `*Valor total: ${valor}*\n\n` +
+      (pagamento ? `*Dados para pagamento*\n${pagamento}\n\n` : "") +
+      `Assim que lhe for possível, agradecemos a confirmação do pagamento e o envio do comprovativo. Obrigado pela preferência.\n\n` +
+      `Com os melhores cumprimentos,\n*${emissor}*`
     );
   };
 

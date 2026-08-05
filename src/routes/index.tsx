@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, FileText, Plus, TrendingUp, Wallet } from "lucide-react";
 import { AppLayout } from "@/components/AppLayout";
+import { RenewalBanner } from "@/components/RenewalBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useDocumentos } from "@/lib/store";
@@ -9,13 +10,13 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Painel | EasyGest" },
+      { title: "Painel | BusiGest" },
       {
         name: "description",
         content:
           "Veja quanto faturou no mês, quantos recibos emitiu e crie um novo documento num toque.",
       },
-      { property: "og:title", content: "Painel | EasyGest" },
+      { property: "og:title", content: "Painel | BusiGest" },
       {
         property: "og:description",
         content: "Resumo de faturação e criação rápida de recibos e orçamentos.",
@@ -49,6 +50,7 @@ function Painel() {
 
   return (
     <AppLayout title={t("dash.title")} subtitle={t("dash.subtitle")}>
+      <RenewalBanner />
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3">
         {cards.map((c) => (
           <div
