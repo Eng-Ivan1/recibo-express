@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, FileText, Plus, TrendingUp, Wallet } from "lucide-react";
 import { AppLayout } from "@/components/AppLayout";
+import { RenewalBanner } from "@/components/RenewalBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useDocumentos } from "@/lib/store";
@@ -49,6 +50,7 @@ function Painel() {
 
   return (
     <AppLayout title={t("dash.title")} subtitle={t("dash.subtitle")}>
+      <RenewalBanner />
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3">
         {cards.map((c) => (
           <div
