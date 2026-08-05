@@ -204,3 +204,32 @@ export const dataCurta = (iso: string, lang: Lang = "pt") =>
     year: "numeric",
   });
 
+
+export interface Rascunho {
+  tipo: DocType;
+  status: DocStatus;
+  cliente: string;
+  clienteContacto: string;
+  observacoes: string;
+  itens: DocItem[];
+}
+
+export const RASCUNHO_VAZIO: Rascunho = {
+  tipo: "recibo",
+  status: "pago",
+  cliente: "",
+  clienteContacto: "",
+  observacoes: "",
+  itens: [],
+};
+
+/** Cache global do formulário: navegar entre abas nunca perde o que já foi digitado. */
+export function useRascunho() {
+  const { value, save, carregado } = useStored<Rascunho>(RASCUNHO_KEY, RASCUNHO_VAZIO);
+  return {
+    rascunho: { ...RASCUNHO_VAZIO, ...value },
+    guardarRascunho: save,
+    limparRascunho: () => save(RASCUNHO_VAZIO),
+    carregado,
+  };
+}
