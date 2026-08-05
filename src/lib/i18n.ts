@@ -1,4 +1,4 @@
-import { dataCurta, moeda, useConfig, type Lang } from "./store";
+import { PAIS_REGRAS, dataCurta, moeda, useConfig, type Lang, type Pais } from "./store";
 
 type Dict = Record<string, string>;
 
@@ -8,6 +8,8 @@ const pt: Dict = {
   "nav.catalogo": "Catálogo",
   "nav.historico": "Histórico",
   "nav.definicoes": "Definições",
+  "nav.ajuda": "Ajuda",
+  "banner.cta": "Renovar agora",
 
   "common.save": "Guardar",
   "common.total": "Total",
@@ -94,6 +96,22 @@ const pt: Dict = {
   "set.iban": "IBAN",
   "set.swift": "SWIFT / BIC",
   "set.payLink": "Link de Pagamento (PayPal / Stripe)",
+  "set.country": "País",
+  "set.countryHint": "Ajusta automaticamente idioma, moeda e campos fiscais.",
+  "set.pix": "Chave PIX",
+  "set.cpfCnpj": "CPF / CNPJ",
+  "set.bankBR": "Dados Bancários (Brasil)",
+  "set.bankZA": "Bank Details (South Africa)",
+  "set.branch": "Branch / Agência",
+  "set.taxId": "Tax ID",
+  "set.country": "Country",
+  "set.countryHint": "Automatically adapts language, currency and tax fields.",
+  "set.pix": "PIX Key",
+  "set.cpfCnpj": "CPF / CNPJ",
+  "set.bankBR": "Bank Details (Brazil)",
+  "set.bankZA": "Bank Details (South Africa)",
+  "set.branch": "Branch code",
+  "set.taxId": "Tax ID",
   "set.saved": "Definições guardadas.",
 };
 
@@ -103,6 +121,8 @@ const en: Dict = {
   "nav.catalogo": "Catalog",
   "nav.historico": "History",
   "nav.definicoes": "Settings",
+  "nav.ajuda": "Guide",
+  "banner.cta": "Renew now",
 
   "common.save": "Save",
   "common.total": "Total",
@@ -207,6 +227,8 @@ export function useI18n() {
     carregado,
     setLang: (l: Lang) => guardarConfig({ ...config, lang: l }),
     setCurrency: (c: string) => guardarConfig({ ...config, currency: c }),
+    pais: config.pais,
+    setPais: (p: Pais) => guardarConfig({ ...config, pais: p, ...PAIS_REGRAS[p] }),
     t: (key: string) => translate(lang, key),
     fmt: (v: number) => moeda(v, config.currency, lang),
     data: (iso: string) => dataCurta(iso, lang),
