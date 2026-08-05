@@ -1,9 +1,9 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Lock } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
-import { IS_VIP, TRIAL_DAYS, TRIAL_DISABLED, isTrialExpired, trialMsLeft } from "@/lib/trial";
+import { ESCALEPAY_URL, IS_VIP, TRIAL_DAYS, TRIAL_DISABLED, isTrialExpired, trialMsLeft } from "@/lib/trial";
 
-const ESCALEPAY_URL = "https://escalepay.com";
+import { ESCALEPAY_URL } from "@/lib/trial";
 
 export function TrialGate({ children }: { children: ReactNode }) {
   const { lang } = useI18n();
