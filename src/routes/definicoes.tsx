@@ -207,8 +207,8 @@ function Definicoes() {
             <Globe className="size-4 text-accent" /> {t("set.international")}
           </h2>
           <div className="grid gap-3 md:grid-cols-2">
-            {campo("iban", t("set.iban"), "MZ59 0000 0000 0000 0000 0000 0")}
-            {campo("swift", t("set.swift"), "BCOMMZMX")}
+            {campo("iban", t("set.iban"), pais === "ZA" ? "ZA00 0000 0000 0000 0000" : "MZ59 0000 0000 0000 0000 0000 0")}
+            {campo("swift", t("set.swift"), pais === "ZA" ? "SBZAZAJJ" : "BCOMMZMX")}
           </div>
           {campo("linkPagamento", t("set.payLink"), "https://paypal.me/…", "url")}
         </div>
