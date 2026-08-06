@@ -47,7 +47,7 @@ export interface Perfil {
 }
 
 export type Lang = "pt" | "en";
-export type Pais = "MZ" | "BR" | "ZA";
+export type Pais = "MZ" | "BR";
 
 export interface Config {
   lang: Lang;
@@ -75,7 +75,6 @@ export const PERFIL_VAZIO: Perfil = {
 export const PAIS_REGRAS: Record<Pais, { lang: Lang; currency: string }> = {
   MZ: { lang: "pt", currency: "MZN" },
   BR: { lang: "pt", currency: "BRL" },
-  ZA: { lang: "en", currency: "ZAR" },
 };
 
 /** Deteta o país a partir do locale do dispositivo (fallback: Moçambique). */
@@ -83,13 +82,12 @@ export function detetarPais(): Pais {
   if (typeof navigator === "undefined") return "MZ";
   const loc = (navigator.language || "").toUpperCase();
   if (loc.includes("BR")) return "BR";
-  if (loc.includes("ZA")) return "ZA";
   return "MZ";
 }
 
 export const CONFIG_INICIAL: Config = { lang: "pt", currency: "MZN", pais: "MZ" };
 
-export const MOEDAS = ["MZN", "BRL", "ZAR", "EUR", "USD", "GBP"] as const;
+export const MOEDAS = ["MZN", "BRL", "EUR", "USD", "GBP"] as const;
 
 const DOCS_KEY = "reciboja:documentos";
 const CAT_KEY = "reciboja:catalogo";
