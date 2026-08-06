@@ -3,9 +3,9 @@ import {
   FileText,
   HelpCircle,
   History,
+  Layers,
   LayoutDashboard,
   Package,
-  Receipt,
   Settings,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -70,7 +70,7 @@ export function AppLayout({
           <div className="flex items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-2">
               <span className="flex size-9 items-center justify-center rounded-xl bg-primary-foreground/15">
-                <Receipt className="size-5" />
+                <Layers className="size-5" />ns
               </span>
               <span className="text-lg font-extrabold tracking-tight">BusiGest</span>
             </Link>
