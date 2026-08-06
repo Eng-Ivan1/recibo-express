@@ -70,7 +70,7 @@ export function AppLayout({
           <div className="flex items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-2">
               <span className="flex size-9 items-center justify-center rounded-xl bg-primary-foreground/15">
-                <Layers className="size-5" />ns
+                <Layers className="size-5" />
               </span>
               <span className="text-lg font-extrabold tracking-tight">BusiGest</span>
             </Link>
