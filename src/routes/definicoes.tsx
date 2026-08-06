@@ -42,9 +42,7 @@ function Definicoes() {
   const ph =
     pais === "BR"
       ? { empresa: "Ex.: João Silva Serviços", contacto: "(11) 99999-0000" }
-      : pais === "ZA"
-        ? { empresa: "e.g. John Doe Services", contacto: "+27 82 000 0000" }
-        : { empresa: "Ex.: João Silva Serviços", contacto: "84 123 4567" };
+      : { empresa: "Ex.: João Silva Serviços", contacto: "84 123 4567" };
 
   const campo = (
     id: keyof typeof perfil,
@@ -69,12 +67,11 @@ function Definicoes() {
       <div className="space-y-4">
         <div className="surface-card space-y-2 p-5">
           <Label className="text-xs text-muted-foreground">{t("set.country")}</Label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {(
               [
                 { code: "MZ", label: "Moçambique" },
                 { code: "BR", label: "Brasil" },
-                { code: "ZA", label: "South Africa" },
               ] as { code: Pais; label: string }[]
             ).map((o) => (
               <button
@@ -186,29 +183,13 @@ function Definicoes() {
           </div>
         ) : null}
 
-        {pais === "ZA" ? (
-          <div className="surface-card space-y-4 p-5">
-            <h2 className="flex items-center gap-2 text-sm font-bold">
-              <Banknote className="size-4 text-accent" /> {t("set.bankZA")}
-            </h2>
-            <div className="grid gap-3 md:grid-cols-2">
-              {campo("banco", t("set.bank"), "e.g. Standard Bank, FNB")}
-              {campo("conta", t("set.account"), "Account number 1234567890")}
-            </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              {campo("branchCode", t("set.branch"), "Branch code 250655")}
-              {campo("taxId", t("set.taxId"), "Tax ID 9876543210")}
-            </div>
-          </div>
-        ) : null}
-
         <div className="surface-card space-y-4 p-5">
           <h2 className="flex items-center gap-2 text-sm font-bold">
             <Globe className="size-4 text-accent" /> {t("set.international")}
           </h2>
           <div className="grid gap-3 md:grid-cols-2">
-            {campo("iban", t("set.iban"), pais === "ZA" ? "ZA00 0000 0000 0000 0000" : "MZ59 0000 0000 0000 0000 0000 0")}
-            {campo("swift", t("set.swift"), pais === "ZA" ? "SBZAZAJJ" : "BCOMMZMX")}
+            {campo("iban", t("set.iban"), "MZ59 0000 0000 0000 0000 0000 0")}
+            {campo("swift", t("set.swift"), "BCOMMZMX")}
           </div>
           {campo("linkPagamento", t("set.payLink"), "https://paypal.me/…", "url")}
         </div>
