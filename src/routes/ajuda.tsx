@@ -25,17 +25,17 @@ export const Route = createFileRoute("/ajuda")({
 const conteudo = {
   pt: {
     title: "Ajuda",
-    subtitle: "O guia rápido para transformar o seu negócio em 30 segundos.",
-    dorTitulo: "A motivação: porque está a perder dinheiro sem saber",
+    subtitle: "O guia rápido para transformar o seu negócio",
+    dorTitulo: "O problema: porque está a perder dinheiro sem saber",
     dor: [
       "O cliente pede o preço no WhatsApp e você demora horas a responder — quando responde, ele já comprou noutro sítio.",
-      "Manda cotações escritas em texto puro, cheias de erros, com aspeto amador. Quem parece amador cobra barato.",
-      "Não sabe de cor o preço nem o valor real do que tem em stock, e acaba a vender abaixo do que vale.",
-      "No fim do mês não sabe quanto recebeu, quanto está por receber nem quem lhe deve dinheiro.",
+      "Manda cotações escritas em texto manual, com aspeto amador. Quem parece amador cobra barato.",
+      "Não memorizar o preço nem o valor real do que tem em stock, e acaba por vender abaixo do que vale.",
+      "No fim do mês não sabe quanto recebeu, quanto está por receber e nem quem lhe deve dinheiro.",
     ],
     benTitulo: "Os benefícios: porque o BusiGest é a solução",
     ben: [
-      "Profissionaliza o seu negócio em 30 segundos: envia um PDF com o seu nome, logo azul e dados de pagamento.",
+      "Profissionaliza o seu negócio em 30 segundos: envia um PDF com o seu nome, contacto e dados de pagamento.",
       "Gera autoridade imediata — quem apresenta documentos sérios fecha mais contratos e cobra mais caro.",
       "Roda direto no telemóvel, instala-se como aplicativo e quase não ocupa memória.",
       "100% seguro e prático: os seus dados ficam guardados no seu próprio dispositivo, sem contas nem palavras-passe.",
@@ -43,22 +43,27 @@ const conteudo = {
     ],
     passosTitulo: "Passo a passo funcional",
     passos: [
-      "1. Definições — escolha o país (Moçambique, Brasil ou África do Sul), a moeda e preencha os seus dados: nome/empresa, contacto e formas de pagamento (M-Pesa, e-Mola, PIX, banco, IBAN ou link).",
+      "1. Definições — escolha o país (Moçambique ou Brasil, a moeda e preencha os seus dados: nome/empresa, contacto e formas de pagamento (M-Pesa, e-Mola, PIX, banco, IBAN ou link).",
       "2. Catálogo — registe os produtos e serviços que mais vende com o preço certo. Faça isto uma vez e nunca mais digite preços à mão.",
       "3. Criar — escolha Recibo ou Orçamento, indique o cliente, adicione itens do catálogo (o total é calculado sozinho) e toque em Gerar PDF profissional.",
       "4. Histórico — acompanhe tudo. Um toque muda de Pendente para Pago, e o botão Enviar Cobrança WhatsApp manda uma mensagem de cobrança educada e formatada.",
+      "5. Painel - registra e exibe o fluxo de vendas em tempo real.",
+      "Nota: na aba Criar o orçamento deve estar em pendente antes de ser criado!"
     ],
     pdfTitulo: "Como guardar o PDF real no telemóvel",
     pdf: [
       "iPhone (Safari): ao gerar o documento, ele abre no ecrã. Toque no ícone Partilhar (quadrado com seta para cima) e escolha 'Guardar em Ficheiros' — ou 'Partilhar > WhatsApp' para enviar direto ao cliente.",
-      "Android (Chrome): o PDF é descarregado automaticamente para a pasta Transferências/Downloads. Abra o WhatsApp, toque no clipe e escolha Documento para enviar.",
+      "Android (Chrome): o PDF é descarregado automaticamente para a pasta Transferências/Downloads. Abra o WhatsApp, e escolha Documento para enviar.",
+      
       "Instalar o app: no Chrome do PC clique no ícone de instalar na barra de endereço; no iPhone use 'Partilhar > Adicionar ao Ecrã Principal'. O BusiGest passa a abrir em ecrã inteiro, sem barras.",
+      "Android (Chrome): Abra o link do sistema no Google Chrome do telemóvel, clique nos três pontinhos verticais no canto superior direito do ecrã.Clique em Instalar aplicação ou Adicionar ao ecrã principal.",
+      "MAC(safari):Abra o link do sistema no Safari do Mac. Vá ao menu do topo do ecrã, clique em Ficheiro.Selecione a opção Adicionar à Dock."
     ],
   },
   en: {
     title: "Guide",
-    subtitle: "The quick guide to professionalise your business in 30 seconds.",
-    dorTitulo: "The motivation: why you are losing money without noticing",
+    subtitle: "The quick guide to professionalise your business.",
+    dorTitulo: "The problem: why you are losing money without noticing",
     dor: [
       "A client asks for a price on WhatsApp and you take hours to reply — by then they have already bought elsewhere.",
       "You send quotations as plain text, full of typos and amateur looking. Whoever looks amateur charges low prices.",
@@ -79,6 +84,8 @@ const conteudo = {
       "2. Catalog — save the products and services you sell most with the right price. Do it once and never type a price again.",
       "3. Create — pick Invoice or Quotation, enter the client, add catalog items (the total is calculated automatically) and tap Generate professional PDF.",
       "4. History — track everything. One tap switches Pending to Paid, and the Send WhatsApp Reminder button sends a polite, well formatted payment request.",
+      "5. Dashboard – records and displays the sales flow in real time.",
+      "Note: In the Create tab, the quotation must be set to Pending before it is created."
     ],
     pdfTitulo: "How to save the real PDF on your phone",
     pdf: [
