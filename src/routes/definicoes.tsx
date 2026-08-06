@@ -42,9 +42,7 @@ function Definicoes() {
   const ph =
     pais === "BR"
       ? { empresa: "Ex.: João Silva Serviços", contacto: "(11) 99999-0000" }
-      : pais === "ZA"
-        ? { empresa: "e.g. John Doe Services", contacto: "+27 82 000 0000" }
-        : { empresa: "Ex.: João Silva Serviços", contacto: "84 123 4567" };
+      : { empresa: "Ex.: João Silva Serviços", contacto: "84 123 4567" };
 
   const campo = (
     id: keyof typeof perfil,
@@ -69,12 +67,11 @@ function Definicoes() {
       <div className="space-y-4">
         <div className="surface-card space-y-2 p-5">
           <Label className="text-xs text-muted-foreground">{t("set.country")}</Label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {(
               [
                 { code: "MZ", label: "Moçambique" },
                 { code: "BR", label: "Brasil" },
-                { code: "ZA", label: "South Africa" },
               ] as { code: Pais; label: string }[]
             ).map((o) => (
               <button
